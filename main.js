@@ -33,17 +33,14 @@ app.get('/result', function (req, res) {
         });
     }
 
-    // Correct variable name here
     const filePath = path.join(__dirname, 'results', user.result);
     
-    // Check if the file exists
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
             console.error("File access error:", err);
             return res.status(404).send('Error: File not found');
         }
         
-        // If file exists, proceed with download
         res.download(filePath, user.result, (err) => {
             if (err) {
                 console.error("Download Error:", err);
